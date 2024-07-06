@@ -19,11 +19,22 @@
     }
 </style>
 
-    <script>
+<script>
+    function redirectToHttps() {
         if (window.location.protocol === 'http:') {
-            window.location.href = 'https://' + window.location.hostname + window.location.pathname + window.location.search;
+            const lastRedirectTime = localStorage.getItem('lastRedirectTime');
+            const currentTime = new Date().getTime();
+
+            if (!lastRedirectTime || currentTime - lastRedirectTime >= 60000) {
+                localStorage.setItem('lastRedirectTime', currentTime);
+                window.location.href = 'https://' + window.location.hostname + window.location.pathname + window.location.search;
+            }
         }
-    </script>
+    }
+
+    redirectToHttps();
+</script>
+
 </head>
 <body>
     <iframe src="https://www.google.com/maps/embed?pb=!4v1718393198118!6m8!1m7!1sCAoSLEFGMVFpcE5ndFE5QlNXTktyZ05MdXhtMk1RS2tHU0IyVUhBMGxwdDR4TU0y!2m2!1d42.9468348!2d17.6261969!3f165.96226982542066!4f-3.213025871212551!5f0.7820865974627469" width="100%" height="100%" style="border:none; overflow:hidden;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
